@@ -1,4 +1,5 @@
 const { Blog, User } = require("../models");
+const { AuthErr } = require("../utils/AuthErr");
 const { tokenExtractor } = require("../utils/middleware");
 const router = require("express").Router();
 
@@ -36,10 +37,18 @@ router.post("/", tokenExtractor, async ({ body, decodedToken }, res) => {
   res.json(blog);
 });
 
-router.delete("/:id", blogById, async ({ blog }, res) => {
-  await blog.destroy();
-  res.status(204).end();
-});
+router.delete(
+  "/:id",
+  tokenExtractor,
+  blogById,
+  async ({ blog, decodedToken }, res) => {
+    if (decodedToken.id !== blog.userId)
+      throw new AuthErr("only allowed to delete own blogs", 403);
+
+    await blog.destroy();
+    res.status(204).end();
+  }
+);
 
 router.put("/:id", blogById, async ({ blog, body: { likes } }, res) => {
   if (likes === undefined) throw new BlogError("missing likes field");
