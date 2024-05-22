@@ -5,7 +5,7 @@ GET http://localhost:3001/api/blogs
 
 ### GET all with "spec" in title
 
-GET http://localhost:3001/api/blogs?search=spec
+GET http://localhost:3001/api/blogs?search=omena
 
 ### add new blog w/o likes via user2
 
@@ -26,7 +26,7 @@ content-type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiaWQiOjQsImlhdCI6MTc0MjczOTU4NX0.xDho4rSKOMuri4s4gWXYHP8suDe3VxWQc5Cn_ipz7u4
 
 {
-    "author": "author via REST",
+    "author": "omena",
     "url": "url via REST",
     "title": "title via REST",
     "likes": 11

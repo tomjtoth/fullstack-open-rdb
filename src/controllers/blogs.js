@@ -25,8 +25,13 @@ router.get("/", async (req, res) => {
     },
     where: req.query.search
       ? {
-          title: {
-            [Op.iLike]: `%${req.query.search}%`,
+          [Op.or]: {
+            title: {
+              [Op.iLike]: `%${req.query.search}%`,
+            },
+            author: {
+              [Op.iLike]: `%${req.query.search}%`,
+            },
           },
         }
       : undefined,
