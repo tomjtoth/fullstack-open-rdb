@@ -2,8 +2,10 @@ const { Blog } = require("../models");
 
 const router = require("express").Router();
 
-const blogById = async (req, _res, next) => {
+const blogById = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id);
+  if (!req.blog) return res.status(404).end();
+
   next();
 };
 
@@ -22,12 +24,15 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:id", blogById, async ({ blog }, res) => {
-  if (blog) {
-    await blog.destroy();
-    return res.status(204).end();
-  }
+  await blog.destroy();
+  res.status(204).end();
+});
 
-  res.status(404).end();
+router.put("/:id", blogById, async ({ blog, body: { likes } }, res) => {
+  blog.likes = likes;
+  await blog.save();
+
+  res.json(blog);
 });
 
 module.exports = router;
