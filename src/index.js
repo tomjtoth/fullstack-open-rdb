@@ -1,15 +1,18 @@
-require("dotenv").config();
-
-const router = require("./controllers/blogs.js");
 const express = require("express");
+const router = require("./controllers/blogs");
+const { PORT } = require("./utils/config");
+const { connectToDatabase } = require("./utils/db");
 
 const app = express();
 
 app.use(express.json());
 app.use("/api/blogs", router);
 
-const PORT = process.env.PORT || 3001;
+const start = async () => {
+  await connectToDatabase();
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+};
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+start();
