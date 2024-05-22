@@ -1,13 +1,18 @@
 const router = require("express").Router();
 
-const { User } = require("../models");
+const { Blog, User } = require("../models");
 
 class UserError extends Error {
   name = "invalid user";
 }
 
 router.get("/", async (_req, res) => {
-  const users = await User.findAll();
+  const users = await User.findAll({
+    include: {
+      model: Blog,
+      attributes: { exclude: ["userId"] },
+    },
+  });
   res.json(users);
 });
 

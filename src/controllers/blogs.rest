@@ -2,10 +2,11 @@
 
 GET http://localhost:3001/api/blogs
 
-### add new blog w/o likes
+### add new blog w/o likes via user2
 
 POST http://localhost:3001/api/blogs
 content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwiaWQiOjEsImlhdCI6MTc0Mjc0MDk0OX0.EHqypy82gXd0j02uQuElXeHsxxKe7HiaWnI1biYruRk
 
 {
     "author": "author via REST",
@@ -13,7 +14,7 @@ content-type: application/json
     "title": "title via REST"
 }
 
-### add new blog with likes
+### add new blog with likes via user1
 
 POST http://localhost:3001/api/blogs
 content-type: application/json

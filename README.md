@@ -17,3 +17,5 @@ SECRET=$(uuidgen)
 # start the containerized database via
 docker-compose -f docker-compose.dev.yml up
 ```
+
+- 13.10 jälkeen piti ajaa `delete from blogs;` kannassa
