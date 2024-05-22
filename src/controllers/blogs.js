@@ -50,10 +50,20 @@ router.post("/", tokenExtractor, async ({ body, decodedToken }, res) => {
   res.json(blog);
 });
 
-router.delete("/:id", blogById, async ({ blog }, res) => {
-  await blog.destroy();
-  res.status(204).end();
-});
+router.delete(
+  "/:id",
+  tokenExtractor,
+  blogById,
+  async ({ blog, decodedToken }, res) => {
+    if (decodedToken.id !== blog.userId)
+      return res
+        .status(400)
+        .json({ error: "only allowed to delete own blogs" });
+
+    await blog.destroy();
+    res.status(204).end();
+  }
+);
 
 router.put("/:id", blogById, async ({ blog, body: { likes } }, res) => {
   if (likes === undefined) throw new Error("missing likes field");
