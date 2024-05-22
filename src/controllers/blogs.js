@@ -1,6 +1,11 @@
-const Blog = require("../models/blog.js");
+const { Blog } = require("../models");
 
 const router = require("express").Router();
+
+const blogById = async (req, _res, next) => {
+  req.blog = await Blog.findByPk(req.params.id);
+  next();
+};
 
 router.get("/", async (req, res) => {
   const blogs = await Blog.findAll();
@@ -8,16 +13,18 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const blog = await Blog.create(req.body);
-  res.json(blog);
+  try {
+    const blog = await Blog.create(req.body);
+    res.json(blog);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 });
 
-router.delete("/:id", async ({ params: { id } }, res) => {
-  const delBlog = await Blog.findByPk(id);
-
-  if (delBlog) {
-    await delBlog.destroy();
-    return res.json(delBlog);
+router.delete("/:id", blogById, async ({ blog }, res) => {
+  if (blog) {
+    await blog.destroy();
+    return res.status(204).end();
   }
 
   res.status(404).end();
