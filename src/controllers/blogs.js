@@ -1,4 +1,6 @@
 const { Blog, User } = require("../models");
+const { Op } = require("sequelize");
+
 const { AuthErr } = require("../utils/AuthErr");
 const { tokenExtractor } = require("../utils/middleware");
 const router = require("express").Router();
@@ -21,6 +23,13 @@ router.get("/", async (req, res) => {
       model: User,
       attributes: ["name"],
     },
+    where: req.query.search
+      ? {
+          title: {
+            [Op.iLike]: `%${req.query.search}%`,
+          },
+        }
+      : undefined,
   });
   res.json(blogs);
 });
