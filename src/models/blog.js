@@ -24,6 +24,7 @@ Blog.init(
     },
     likes: {
       type: DataTypes.INTEGER,
+      defaultValue: 0,
     },
     userId: {
       type: DataTypes.INTEGER,
