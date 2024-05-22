@@ -1,0 +1,41 @@
+### correct pw
+
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+    "username": "user1",
+    "password": "salainen"
+}
+
+### incorrect pw
+
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+    "username": "user1",
+    "password": "asdf"
+}
+
+### missing pw
+
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+    "username": "user1"
+}
+
+### missing username
+
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+    "password": "asdf"
+}
+
+### without body
+
+POST http://localhost:3001/api/login

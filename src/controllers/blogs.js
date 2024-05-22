@@ -1,5 +1,5 @@
-const { Blog } = require("../models");
-
+const { Blog, User } = require("../models");
+const { tokenExtractor } = require("../utils/middleware");
 const router = require("express").Router();
 
 const blogById = async (req, res, next) => {
@@ -18,13 +18,15 @@ router.get("/", async (req, res) => {
   res.json(blogs);
 });
 
-router.post("/", async ({ body }, res) => {
+router.post("/", tokenExtractor, async ({ body, decodedToken }, res) => {
   if (body.title === undefined) throw new BlogError("missing title field");
   if (body.url === undefined) throw new BlogError("missing url field");
   if (body.likes !== undefined && body.likes < 0)
     throw new BlogError("negative value for likes");
 
-  const blog = await Blog.create(body);
+  const user = await User.findByPk(decodedToken.id);
+
+  const blog = await Blog.create({ ...body, userId: user.id });
   res.json(blog);
 });
 

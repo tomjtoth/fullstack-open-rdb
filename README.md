@@ -11,6 +11,7 @@ PGPASS=$(uuidgen)
 echo "\
 POSTGRES_PASSWORD=$PGPASS
 DATABASE_URL=postgres://postgres:$PGPASS@localhost:5432/postgres
+SECRET=$(uuidgen)
 " > .env
 
 # start the containerized database via
