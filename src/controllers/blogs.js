@@ -9,18 +9,23 @@ const blogById = async (req, res, next) => {
   next();
 };
 
+class BlogError extends Error {
+  name = "invalid blog";
+}
+
 router.get("/", async (req, res) => {
   const blogs = await Blog.findAll();
   res.json(blogs);
 });
 
-router.post("/", async (req, res) => {
-  try {
-    const blog = await Blog.create(req.body);
-    res.json(blog);
-  } catch (error) {
-    res.status(400).json({ error });
-  }
+router.post("/", async ({ body }, res) => {
+  if (body.title === undefined) throw new BlogError("missing title field");
+  if (body.url === undefined) throw new BlogError("missing url field");
+  if (body.likes !== undefined && body.likes < 0)
+    throw new BlogError("negative value for likes");
+
+  const blog = await Blog.create(body);
+  res.json(blog);
 });
 
 router.delete("/:id", blogById, async ({ blog }, res) => {
@@ -29,6 +34,9 @@ router.delete("/:id", blogById, async ({ blog }, res) => {
 });
 
 router.put("/:id", blogById, async ({ blog, body: { likes } }, res) => {
+  if (likes === undefined) throw new BlogError("missing likes field");
+  if (likes < 0) throw new BlogError("negative value for likes");
+
   blog.likes = likes;
   await blog.save();
 
