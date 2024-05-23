@@ -45,6 +45,11 @@ router.post("/", tokenExtractor, async ({ body, decodedToken }, res) => {
   if (body.url === undefined) throw new BlogError("missing url field");
   if (body.likes !== undefined && body.likes < 0)
     throw new BlogError("negative value for likes");
+  if (body.year === undefined) throw new BlogError("missing year field");
+
+  const thisYear = new Date().getFullYear();
+  if (body.year < 1991 || body.year > thisYear)
+    throw new BlogError(`year must be between 1991 and ${thisYear}`);
 
   const user = await User.findByPk(decodedToken.id);
 

@@ -11,13 +11,14 @@ GET http://localhost:3001/api/blogs?search=omena
 
 POST http://localhost:3001/api/blogs
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inh5ekBjb21wYW55LmNvbSIsImlkIjoxLCJpYXQiOjE3NDI3NTAxNzB9.wP53Cdfk4a2TsfLJUJJUFItHe_wGStAXSznHYulk0n8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inh5ekBjb21wYW55LmNvbSIsImlkIjoxLCJpYXQiOjE3NDI3NTEyNDJ9.66n_NfjfCAyTkUBwfnX6hjrYs42gonFcCtp8DLogqlY
 
 {
     "author": "author via REST",
     "url": "url via REST",
     "title": "spec title",
-    "likes": 2
+    "likes": 2,
+    "year": 1995
 }
 
 ### add new blog with likes via user1
