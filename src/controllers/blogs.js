@@ -69,7 +69,7 @@ router.delete(
   async ({ blog, decodedToken }, res) => {
     if (decodedToken.id !== blog.userId)
       return res
-        .status(400)
+        .status(401)
         .json({ error: "only allowed to delete own blogs" });
 
     await blog.destroy();
