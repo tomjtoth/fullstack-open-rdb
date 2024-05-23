@@ -9,7 +9,7 @@ content-type: application/json
 
 {
     "name": "NNNAAAAMMMEEE",
-    "username": "user1"
+    "username": "xyz@company.com"
 }
 
 ### add new user #2
@@ -19,7 +19,7 @@ content-type: application/json
 
 {
     "name": "NNNAAAAMMMEEE",
-    "username": "user2"
+    "username": "user2@company.com"
 }
 
 ### update name of #1
