@@ -1,5 +1,4 @@
 const router = require("express").Router();
-
 const { Blog, User } = require("../models");
 
 router.get("/", async (_req, res) => {
@@ -10,6 +9,21 @@ router.get("/", async (_req, res) => {
     },
   });
   res.json(users);
+});
+
+router.get("/:id", async ({ params: { id } }, res) => {
+  const user = await User.findByPk(id, {
+    attributes: {
+      include: ["name", "username"],
+    },
+    include: {
+      model: Blog,
+    },
+  });
+
+  if (!user) return res.status(404).end();
+
+  res.json(user);
 });
 
 router.post("/", async (req, res) => {
