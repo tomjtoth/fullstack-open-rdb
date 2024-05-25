@@ -11,12 +11,12 @@ GET http://localhost:3001/api/blogs?search=omena
 
 POST http://localhost:3001/api/blogs
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inh5ekBjb21wYW55LmNvbSIsImlkIjoxLCJpYXQiOjE3NDI3NTEyNDJ9.66n_NfjfCAyTkUBwfnX6hjrYs42gonFcCtp8DLogqlY
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inh5ejJAY29tcGFueS5jb20iLCJpZCI6MiwiaWF0IjoxNzQyNzYyOTMwfQ.r8UCjnNNWTTx1t5EKgxI7yDw4hDmNlQO_qjesmueAQw
 
 {
-    "author": "author via REST",
+    "author": "author via REST55",
     "url": "url via REST",
-    "title": "spec title",
+    "title": "spec title67",
     "likes": 2,
     "year": 1995
 }

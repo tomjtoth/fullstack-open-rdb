@@ -8,7 +8,7 @@ POST http://localhost:3001/api/users
 content-type: application/json
 
 {
-    "name": "NNNAAAAMMMEEE",
+    "name": "dummy user 1",
     "username": "xyz@company.com"
 }
 
@@ -18,15 +18,15 @@ POST http://localhost:3001/api/users
 content-type: application/json
 
 {
-    "name": "NNNAAAAMMMEEE",
+    "name": "dummy user 2",
     "username": "user2@company.com"
 }
 
 ### update name of #1
 
-PUT http://localhost:3001/api/users/user1
+PUT http://localhost:3001/api/users/xyz@company.com
 content-type: application/json
 
 {
-    "name": "updated name"
+    "name": "dummy user 1"
 }
