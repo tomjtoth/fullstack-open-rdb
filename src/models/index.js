@@ -5,8 +5,8 @@ const User = require("./user");
 User.hasMany(Blog);
 Blog.belongsTo(User);
 
-Blog.belongsToMany(User, { through: JunkTable });
-User.belongsToMany(Blog, { through: JunkTable });
+User.belongsToMany(Blog, { through: JunkTable, as: "readings" });
+Blog.belongsToMany(User, { through: JunkTable, as: "readingLists" });
 
 module.exports = {
   Blog,

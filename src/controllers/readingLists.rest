@@ -1,0 +1,13 @@
+### GET all
+
+GET http://localhost:3001/api/readingLists
+
+### add connection
+
+POST http://localhost:3001/api/readingLists
+content-type: application/json
+
+{
+  "blog_id": 5,
+  "user_id": 2
+}

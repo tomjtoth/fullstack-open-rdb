@@ -16,6 +16,27 @@ router.get("/", async (_req, res) => {
   res.json(users);
 });
 
+router.get("/:id", async ({ params: { id } }, res) => {
+  const user = await User.findByPk(id, {
+    attributes: ["name", "username"],
+
+    include: [
+      {
+        model: Blog,
+        as: "readings",
+        attributes: { exclude: ["userId"] },
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+  });
+
+  if (!user) return res.status(404).end();
+
+  res.json(user);
+});
+
 router.post("/", async (req, res) => {
   const alreadyExists = await User.findOne({
     where: { username: req.body.username },

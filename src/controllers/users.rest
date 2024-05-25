@@ -2,6 +2,10 @@
 
 GET http://localhost:3001/api/users
 
+### GET readingList of #1
+
+GET http://localhost:3001/api/users/1
+
 ### add new user #1
 
 POST http://localhost:3001/api/users
