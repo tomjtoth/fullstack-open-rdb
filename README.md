@@ -19,3 +19,4 @@ docker-compose -f docker-compose.dev.yml up
 ```
 
 - 13.10 jälkeen piti ajaa `delete from blogs;` kannassa
+- tässä vedin git rebase -i <toka-kommentin-hash> kun pidin joku 10kk tauko ennen kun tuli valmiiksi, voin vain suositella, mahtava työkalu! (kirjoittaa historiaa uudelleen)
