@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { Blog, User } = require("../models");
+const { Blog, User, JunkTable } = require("../models");
 
 class UserError extends Error {
   name = "invalid user";
@@ -27,6 +27,11 @@ router.get("/:id", async ({ params: { id } }, res) => {
         attributes: { exclude: ["userId"] },
         through: {
           attributes: [],
+        },
+        include: {
+          model: JunkTable,
+          as: "readingLists",
+          attributes: ["blogRead", "id"],
         },
       },
     ],

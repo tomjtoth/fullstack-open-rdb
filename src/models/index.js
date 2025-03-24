@@ -6,7 +6,9 @@ User.hasMany(Blog);
 Blog.belongsTo(User);
 
 User.belongsToMany(Blog, { through: JunkTable, as: "readings" });
-Blog.belongsToMany(User, { through: JunkTable, as: "readingLists" });
+Blog.belongsToMany(User, { through: JunkTable });
+
+Blog.hasMany(JunkTable, { as: "readingLists" });
 
 module.exports = {
   Blog,
