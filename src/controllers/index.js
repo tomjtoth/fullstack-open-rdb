@@ -1,6 +1,8 @@
 const router = require("express").Router();
 
-for (const route of "blogs users login authors readingLists".split(" ")) {
+for (const route of "blogs users authors readingLists login logout".split(
+  " "
+)) {
   router.use(`/${route}`, require(`./${route}`));
 }
 
