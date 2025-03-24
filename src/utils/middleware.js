@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { SECRET } = require("./config");
 const { AuthErr } = require("./AuthErr");
+const { Session, User } = require("../models");
 
 const errorHandler = (error, _req, res, next) => {
   console.error(error.message);
@@ -19,16 +20,31 @@ const errorHandler = (error, _req, res, next) => {
   next(error);
 };
 
-const tokenExtractor = (req, res, next) => {
+const tokenExtractor = async (req, res, next) => {
   const authorization = req.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    const token = authorization.substring(7);
+    const session = await Session.findByPk(token);
+
+    if (!session) throw new AuthErr("unrecognized token", 403);
+
+    let decoded;
     try {
-      console.log(authorization.substring(7));
-      req.decodedToken = jwt.verify(authorization.substring(7), SECRET);
+      console.log(token);
+      decoded = jwt.verify(token, SECRET);
     } catch (error) {
       console.log(error);
+      await session.destroy();
       throw new AuthErr("invalid token", 401);
     }
+
+    const userFromToken = await User.findByPk(decoded.id);
+    if (userFromToken.disabled) {
+      await session.destroy();
+      throw new AuthErr("your account has been disabled", 403);
+    }
+    req.userSession = session;
+    req.decodedToken = decoded;
   } else throw new AuthErr("missing token", 401);
 
   next();
