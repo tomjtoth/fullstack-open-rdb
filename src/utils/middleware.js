@@ -6,7 +6,10 @@ const errorHandler = (error, _req, res, next) => {
   console.error(error.message);
 
   switch (error.name) {
-    case ("invalid blog", "invalid user", "SequelizeValidationError"):
+    case ("invalid blog",
+    "invalid user",
+    "SequelizeValidationError",
+    "reading-list error"):
       return res.status(400).send({ error: error.message });
 
     case "auth error":

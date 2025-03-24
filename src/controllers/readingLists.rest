@@ -11,3 +11,13 @@ content-type: application/json
   "blog_id": 5,
   "user_id": 2
 }
+
+### update read status
+
+PUT http://localhost:3001/api/readingLists/4
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inh5ekBjb21wYW55LmNvbSIsImlkIjoxLCJpYXQiOjE3NDI4MTc2MjR9.fIB0gO5CoqsUW--ImWzL4_wwSPFrEl-ySgr-v1gjtbg
+
+{
+  "read": true
+}
