@@ -1,6 +1,7 @@
 const Blog = require("./blog");
 const JunkTable = require("./blog_list_junction");
 const User = require("./user");
+const Session = require("./session");
 
 User.hasMany(Blog);
 Blog.belongsTo(User);
@@ -13,5 +14,6 @@ Blog.hasMany(JunkTable, { as: "readingLists" });
 module.exports = {
   Blog,
   User,
+  Session,
   JunkTable,
 };
