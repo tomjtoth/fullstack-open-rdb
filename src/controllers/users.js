@@ -16,7 +16,12 @@ router.get("/", async (_req, res) => {
   res.json(users);
 });
 
-router.get("/:id", async ({ params: { id } }, res) => {
+router.get("/:id", async ({ params: { id }, query: { read } }, res) => {
+  let whereClause;
+
+  if (read === "true") whereClause = { blogRead: true };
+  if (read === "false") whereClause = { blogRead: false };
+
   const user = await User.findByPk(id, {
     attributes: ["name", "username"],
 
@@ -32,6 +37,7 @@ router.get("/:id", async ({ params: { id } }, res) => {
           model: JunkTable,
           as: "readingLists",
           attributes: ["blogRead", "id"],
+          where: whereClause,
         },
       },
     ],
